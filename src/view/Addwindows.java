@@ -388,12 +388,12 @@ public class Addwindows extends javax.swing.JFrame {
 
     private void addBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addBtnTxtMouseClicked
         DaoStudentUse studentDao = DaoStudentUse.getInstance();
+        ListWindow listwindow =  ListWindow.getInstance();
         int nm =1;
         String nmb="1";
         String np="null";
         Student student = new Student(nameTxt.getText(),lastNameTxt.getText(),addresTxt.getText(),nm,jComboBox1.getName(),nm,dateTextField.getText());
-        studentDao.addStudent(student);
-        ListWindow listwindow =  ListWindow.getInstance();
+        studentDao.addStudent(student);     
         listwindow.addLits(nameTxt.getText(),lastNameTxt.getText(),nmb,dateTextField.getText(),np,nmb,jComboBox1.getName(),addresTxt.getText());
         listwindow.setVisible(true);
         
