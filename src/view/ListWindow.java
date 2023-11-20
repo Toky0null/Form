@@ -25,8 +25,8 @@ public class ListWindow extends javax.swing.JFrame {
                 
         }
     
-    public void addLits(){
-        dtm.addRow(new Object[]{});        
+    public void addLits(String name,String lastname,String idcod,String date,String typeC,String phoneN,String typeP,String addres){
+        dtm.addRow(new Object[]{name + " " +lastname,idcod,date,typeC,phoneN,typeP,addres});        
     }
     
      public static ListWindow getInstance() {
