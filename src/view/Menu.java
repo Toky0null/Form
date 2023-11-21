@@ -11,7 +11,7 @@ public class Menu extends javax.swing.JFrame {
     
     public Menu() {
         initComponents();    
-        for (int i = 1; i <= 4; i++) {
+        for (int i = 1; i <= studentDao.getTotalStudentsLoaded(); i++) {
         Student studentById = studentDao.getStudent(i);
         if (studentById != null) {      
         String name = studentById.getName();

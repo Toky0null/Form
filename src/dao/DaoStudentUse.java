@@ -19,6 +19,8 @@ public class DaoStudentUse implements IEstudensDao {
     List<Student> students;
     private static DaoStudentUse instance = null;
     private static final String FILE_DIRECTORY = "src/model/files/";
+    private int totalStudentsLoaded; // Variable para almacenar el total de estudiantes cargados
+
 
     public DaoStudentUse(){
     this.students = new ArrayList<>();
@@ -102,8 +104,11 @@ public class DaoStudentUse implements IEstudensDao {
         }
         return instance;
     }
-
-    private int totalStudentsLoaded; // Variable para almacenar el total de estudiantes cargados
+    
+    public int getTotalStudentsLoaded(){
+        return totalStudentsLoaded;
+    }
+        
 
     private void loadStudents() {
         File directory = new File(FILE_DIRECTORY);
