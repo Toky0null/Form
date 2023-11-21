@@ -9,6 +9,11 @@ import java.io.Serializable;
 public class Student implements Serializable {
     private static final long serialVersionUID = 1L; // Identificador de versión para la serialización
     private static int idCounter = 0;
+    private static int nextId = 1;
+    private int codeId;
+    
+ 
+    
     
 //    private static int id;
     private int idCode;
@@ -19,6 +24,7 @@ public class Student implements Serializable {
     private String phoneNumber;
     private String typePhone;
     private String date;
+    
      
     public Student(String name,String lastname,String address,String phoneNumber,String typePhone,String documentId,String date) {
         idCounter++;
@@ -30,11 +36,12 @@ public class Student implements Serializable {
         this.typePhone = typePhone;
         this.documentId = documentId;
         this.date= date;  
+        this.codeId = nextId++; 
         System.out.println("studiante creado");
     } 
     
     public String toString() {
-        return "ID: " + idCode +
+        return "ID: " + codeId +
                 ", Nombre: " + name +
                 ", Apellido: " + lastName +
                 ", Dirección: " + address +
@@ -44,7 +51,9 @@ public class Student implements Serializable {
                 ", Fecha de nacimiento: " + date;
     }
     
-    
+    public static void setNextId(int nextId) {
+        Student.nextId = nextId;
+    }
     
     public String getName(){ 
         return name;
@@ -103,7 +112,7 @@ public class Student implements Serializable {
     }
 
     public int getCodeId() {
-        return idCode;
+        return  codeId;
     }
    
 }

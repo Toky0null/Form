@@ -415,7 +415,7 @@ public class Addwindows extends javax.swing.JFrame {
         
         Student student = new Student(nameTxt.getText(),lastNameTxt.getText(),addresTxt.getText(),numTextField.getText(),jComboBox1.getSelectedItem().toString(),idTxt.getText(),dateTextField.getText());
         studentDao.addStudent(student);
-        studentDao.saveStudentsExternally();
+        studentDao.saveStudentsExternally(student);
         listwindow.addLits(nameTxt.getText(),lastNameTxt.getText(),idTxt.getText(),dateTextField.getText(),jComboBox1.getSelectedItem().toString(), numTextField.getText(),jComboBox2.getSelectedItem().toString(),addresTxt.getText());
         listwindow.setVisible(true);
         

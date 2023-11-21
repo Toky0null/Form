@@ -27,7 +27,7 @@ public class DeleteWindow extends javax.swing.JFrame {
         for (int i = 0; i < jTable1.getColumnCount(); i++) {
         Class<?> columnClass = jTable1.getColumnClass(i);
         jTable1.setDefaultEditor(columnClass, null);
-        }
+        } 
     }
     
     public static DeleteWindow getInstance() {

@@ -47,32 +47,26 @@ public class DaoStudentUse implements IEstudensDao {
     
     }
     
-    private void saveStudents() {
-        int lastId = students.size() > 0 ? students.get(students.size() - 1).getCodeId() : 0;
-        String filePath = FILE_DIRECTORY + "students_" + lastId + ".ser";
+    private void saveStudent(Student student) {
+        int nextId = student.getCodeId(); // Obtener el próximo ID disponible
+        String filePath = FILE_DIRECTORY + "student_" + nextId + ".ser";
 
         try {
-            File directory = new File(FILE_DIRECTORY);
-            if (!directory.exists()) {
-                directory.mkdirs(); // Crea la carpeta si no existe
-            }
-
-            File file = new File(filePath);
-            if (!file.exists()) {
-                file.createNewFile(); // Crea el archivo si no existe
-            }
-
-            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(file));
-            outputStream.writeObject(students);
+            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(filePath));
+            outputStream.writeObject(student);
             outputStream.close();
-            System.out.println("Estudiantes guardados en " + filePath);
+
+            System.out.println("Estudiante guardado en " + filePath);
+
+            // Actualizar el siguiente ID para el siguiente estudiante
+            Student.setNextId(nextId + 1);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     
-    public void saveStudentsExternally() {
-        saveStudents(); // Llamada al método privado para guardar estudiantes
+    public void saveStudentsExternally(Student student) {
+        saveStudent(student); // Llamada al método privado para guardar estudiantes
     }
     
     @Override
@@ -109,37 +103,73 @@ public class DaoStudentUse implements IEstudensDao {
         return instance;
     }
 
+    private int totalStudentsLoaded; // Variable para almacenar el total de estudiantes cargados
+
     private void loadStudents() {
-    File directory = new File(FILE_DIRECTORY);
-    File[] files = directory.listFiles();
+        File directory = new File(FILE_DIRECTORY);
+        File[] files = directory.listFiles();
 
-    if (files != null) {
-        List<Student> loadedStudents = new ArrayList<>();
+        if (files != null) {
+            List<Student> loadedStudents = new ArrayList<>();
+            int lastId = 0;
 
-        for (File file : files) {
-            if (file.isFile() && file.getName().startsWith("students_")) {
-                try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(file))) {
-                    Object obj = inputStream.readObject();
-                    if (obj instanceof List<?>) {
-                        List<Student> studentsFromFile = (List<Student>) obj;
-                        loadedStudents.addAll(studentsFromFile);
-                        System.out.println("Estudiantes cargados desde: " + file.getName());
+            for (File file : files) {
+                if (file.isFile() && file.getName().startsWith("student_")) {
+                    try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(file))) {
+                        Object obj = inputStream.readObject();
+                        if (obj instanceof Student) {
+                            Student student = (Student) obj;
+                            loadedStudents.add(student);
+                            int fileId = student.getCodeId();
+                            if (fileId > lastId) {
+                                lastId = fileId;
+                            }
+                            System.out.println("Estudiante cargado desde: " + file.getName());
+                        }
+                    } catch (IOException | ClassNotFoundException e) {
+                        System.out.println("Error al cargar el archivo del estudiante: " + file.getName());
+                        e.printStackTrace();
                     }
-                } catch (IOException | ClassNotFoundException e) {
-                    System.out.println("Error al cargar el archivo de estudiantes: " + file.getName());
-                    e.printStackTrace();
                 }
             }
-        }
 
-        students = loadedStudents;
-    } else {
-        System.out.println("No se encontraron archivos de estudiantes en la ruta especificada.");
+            students = loadedStudents;
+            totalStudentsLoaded = students.size(); // Guardar el total de estudiantes cargados
+
+            // Asegurar que el próximo ID sea mayor que el último encontrado
+            int nextId = lastId + 1;
+            Student.setNextId(nextId);
+            System.out.println(totalStudentsLoaded);
+        } else {
+            System.out.println("No se encontraron archivos de estudiantes en la ruta especificada.");
+        }
     }
-  }
+
     
     
    public void loadStudentsExternally() {
         loadStudents(); // Llamada al método privado para cargar
+    }
+   
+   public void updateStudentFile(Student student) {
+        // Encontrar el archivo correspondiente al estudiante y actualizarlo
+        String filePath = FILE_DIRECTORY + "student_" + student.getCodeId() + ".ser";
+        File file = new File(filePath);
+        if (file.exists()) {
+            try {
+                ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(file));
+                outputStream.writeObject(student);
+                outputStream.close();
+                System.out.println("Archivo del estudiante actualizado: " + filePath);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("El archivo del estudiante no existe para actualizar.");
+        }
+    }
+   
+   public void updateStudentFileExternally(Student student) {
+        updateStudentFile(student); // Llamada al método privado para guardar estudiantes
     }
 }
