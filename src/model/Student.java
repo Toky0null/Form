@@ -1,37 +1,49 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package model;
 
+package model;
+import java.io.Serializable;
 /**
  *
  * @author tokyo
  */
 
-public class Student {
-    private static int id;
+public class Student implements Serializable {
+    private static final long serialVersionUID = 1L; // Identificador de versión para la serialización
+    private static int idCounter = 0;
+    
+//    private static int id;
     private int idCode;
     private String name;
     private String lastName;
-    private int documentId;
-    private String addres;
-    private int phoneNumber;
+    private String documentId;
+    private String address;
+    private String phoneNumber;
     private String typePhone;
     private String date;
      
-    public Student(String name,String lastname,String addres,int phoneNumber,String typePhone,int documentId,String date) {
-        id++;
-        this.idCode = id;
+    public Student(String name,String lastname,String address,String phoneNumber,String typePhone,String documentId,String date) {
+        idCounter++;
+        this.idCode = idCounter;
         this.name = name;
         this.lastName = lastname;
-        this.addres = addres;
+        this.address = address;
         this.phoneNumber = phoneNumber;
         this.typePhone = typePhone;
         this.documentId = documentId;
         this.date= date;  
         System.out.println("studiante creado");
     } 
+    
+    public String toString() {
+        return "ID: " + idCode +
+                ", Nombre: " + name +
+                ", Apellido: " + lastName +
+                ", Dirección: " + address +
+                ", Número de teléfono: " + phoneNumber +
+                ", Tipo de teléfono: " + typePhone +
+                ", Documento ID: " + documentId +
+                ", Fecha de nacimiento: " + date;
+    }
+    
     
     
     public String getName(){ 
@@ -51,18 +63,18 @@ public class Student {
     }
      
     public String getAddres(){
-        return addres;
+        return address;
     }
     
-    public void setAddres(String addres){
-        this.addres = addres;   
+    public void setAddres(String address){
+        this.address = address;   
     }
     
-    public int getPhoneNumber(){
+    public String getPhoneNumber(){
         return phoneNumber;
     }
     
-    public void setPhoneNumber(int phoneNumber){
+    public void setPhoneNumber(String phoneNumber){
         this.phoneNumber = phoneNumber;
     }
     
@@ -74,11 +86,11 @@ public class Student {
         this.typePhone = typePhone;
     }
     
-    public int getDocumentId(){
+    public String getDocumentId(){
         return documentId;
     }
     
-    public void setDocumentId(int documentId){
+    public void setDocumentId(String documentId){
         this.documentId = documentId; 
     }
     

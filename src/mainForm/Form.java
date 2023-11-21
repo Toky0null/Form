@@ -15,12 +15,8 @@ public class Form {
 //        Model model = new Model();
 //        Controller gameController = Controller.getInstance(model);
         Menu menu = new Menu();
-           
-//        model.setController(gameController); // Establece el controlador en el modelo
-
-        menu.setVisible(true);
-      
-            
+//      model.setController(gameController); // Establece el controlador en el modelo
+        menu.setVisible(true);           
         System.out.println("Menú principal mostrado");
     }
     

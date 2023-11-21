@@ -1,13 +1,28 @@
 package view;
 
+import dao.DaoStudentUse;
 import java.awt.Color;
+import model.Student;
 
 public class Menu extends javax.swing.JFrame {
-    
+    ListWindow listwindow =  ListWindow.getInstance();
+    DaoStudentUse studentDao = DaoStudentUse.getInstance();
     int xMouse, yMouse;
     
     public Menu() {
         initComponents();
+        
+        for (int i = 1; i <= 2; i++) {
+        Student studentById = studentDao.getStudent(i);
+        if (studentById != null) {      
+        String name = studentById.getName();
+        listwindow.addLits(name, studentById.getLastName(), studentById.getDocumentId(), studentById.getDate(),
+                name, studentById.getPhoneNumber(), studentById.getTypePhone(), studentById.getAddres());
+        } else {
+        System.out.println("No se encontró ningún estudiante con ID: " + i);
+        }   
+      }
+       
     }
     
     @SuppressWarnings("unchecked")
@@ -359,8 +374,9 @@ public class Menu extends javax.swing.JFrame {
 
     private void addBtnTxt2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addBtnTxt2MouseClicked
         // TODO add your handling code here:
-        new Addwindows().setVisible(true);
-        
+        Addwindows addwindow = Addwindows.getInstance();
+        addwindow.setVisible(true);
+         
         
     }//GEN-LAST:event_addBtnTxt2MouseClicked
 
@@ -377,6 +393,8 @@ public class Menu extends javax.swing.JFrame {
 
     private void deleteBtnTxt1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteBtnTxt1MouseClicked
         // TODO add your handling code here:
+        DeleteWindow delete = DeleteWindow.getInstance();
+        delete.setVisible(true);
     }//GEN-LAST:event_deleteBtnTxt1MouseClicked
 
     private void deleteBtnTxt1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteBtnTxt1MouseEntered

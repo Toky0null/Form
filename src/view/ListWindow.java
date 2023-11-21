@@ -12,8 +12,9 @@ import javax.swing.table.DefaultTableModel;
  * @author tokyo
  */
 public class ListWindow extends javax.swing.JFrame {
-    DefaultTableModel dtm = new DefaultTableModel();
-     private static ListWindow instance = null;
+        DefaultTableModel dtm = new DefaultTableModel();
+        private static ListWindow instance = null;
+        int xMouse, yMouse;
     /**
      * Creates new form ListWindow
      */
@@ -22,19 +23,32 @@ public class ListWindow extends javax.swing.JFrame {
         String[] title = new String []{"Nombre y Apellidos","ID documento","Fecha de Nacimiento","Tipo de Contacto","Número de Teléfono","Tipo de Teléfono","Dirección"};
         dtm.setColumnIdentifiers(title);
         jTable1.setModel(dtm);
+        for (int i = 0; i < jTable1.getColumnCount(); i++) {
+        Class<?> columnClass = jTable1.getColumnClass(i);
+        jTable1.setDefaultEditor(columnClass, null);
+}
                 
         }
+    public void delete(int fila){ 
+        dtm.removeRow(fila);
     
+    }
     public void addLits(String name,String lastname,String idcod,String date,String typeC,String phoneN,String typeP,String addres){
         dtm.addRow(new Object[]{name + " " +lastname,idcod,date,typeC,phoneN,typeP,addres});        
     }
     
-     public static ListWindow getInstance() {
+    public static ListWindow getInstance() {
         if (instance == null) {
             instance = new ListWindow();
         }
         return instance;
     }
+     
+    public DefaultTableModel getTableModel() {
+        return dtm;
+    } 
+     
+     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -314,11 +328,14 @@ public class ListWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_exitTxtMouseExited
 
     private void headerMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMouseDragged
-       
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xMouse, y - yMouse);
     }//GEN-LAST:event_headerMouseDragged
 
     private void headerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMousePressed
-  
+        xMouse = evt.getX();
+        yMouse = evt.getY();
     }//GEN-LAST:event_headerMousePressed
 
     private void teacherBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teacherBtnTxtMouseClicked

@@ -3,14 +3,31 @@ package view;
 import dao.DaoStudentUse;
 import java.awt.Color;
 import model.Student;
+import view.NoBorderComboBoxUI;
 
 public class Addwindows extends javax.swing.JFrame {
-    
+    private static Addwindows instance = null;
     int xMouse, yMouse;
+    
+    
+     public void setComboBoxUI() {
+        jComboBox1.setUI(new NoBorderComboBoxUI());
+    }
     
     public Addwindows() {
         initComponents();
+        
     }
+    
+    
+    
+    public static Addwindows getInstance() {
+        if (instance == null) {
+            instance = new Addwindows();
+        }
+        return instance;
+    }
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -47,10 +64,11 @@ public class Addwindows extends javax.swing.JFrame {
         dateTextField = new javax.swing.JFormattedTextField();
         jSeparator8 = new javax.swing.JSeparator();
         userLabel7 = new javax.swing.JLabel();
-        typeComboBox3 = new javax.swing.JComboBox<>();
+        jComboBox2 = new javax.swing.JComboBox<>();
         jSeparator9 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
         setLocationByPlatform(true);
         setUndecorated(true);
         setResizable(false);
@@ -178,10 +196,11 @@ public class Addwindows extends javax.swing.JFrame {
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
         bg.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 350, 210, 20));
 
+        jComboBox1.setEditable(true);
         jComboBox1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Móvil", "Telefono", "Oficina" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Profesor", "Estudiante" }));
         jComboBox1.setBorder(null);
-        bg.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 150, 160, 30));
+        bg.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 150, 210, 30));
 
         jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
         bg.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 430, 210, 20));
@@ -249,10 +268,11 @@ public class Addwindows extends javax.swing.JFrame {
         idLabel.setText("DOCUMENTO ID");
         bg.add(idLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, -1, -1));
 
+        tipeIdComboBox.setEditable(true);
         tipeIdComboBox.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         tipeIdComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "C.C", "T.I", "Pasapórte extrajero", "NIT" }));
         tipeIdComboBox.setBorder(null);
-        bg.add(tipeIdComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 323, 210, 30));
+        bg.add(tipeIdComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, 210, 30));
 
         idTxt.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         idTxt.setForeground(new java.awt.Color(204, 204, 204));
@@ -329,10 +349,12 @@ public class Addwindows extends javax.swing.JFrame {
         userLabel7.setText("TIPO DE CONTACTO");
         bg.add(userLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 130, -1, -1));
 
-        typeComboBox3.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        typeComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alumno", "Maestro" }));
-        typeComboBox3.setBorder(null);
-        bg.add(typeComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 150, 210, 30));
+        jComboBox2.setEditable(true);
+        jComboBox2.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Móvil", "Telefono", "Oficina" }));
+        jComboBox2.setBorder(null);
+        bg.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 150, 160, 30));
+        jComboBox2.getAccessibleContext().setAccessibleParent(bg);
 
         jSeparator9.setForeground(new java.awt.Color(0, 0, 0));
         bg.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 180, 170, 20));
@@ -389,12 +411,12 @@ public class Addwindows extends javax.swing.JFrame {
     private void addBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addBtnTxtMouseClicked
         DaoStudentUse studentDao = DaoStudentUse.getInstance();
         ListWindow listwindow =  ListWindow.getInstance();
-        int nm =1;
-        String nmb="1";
-        String np="null";
-        Student student = new Student(nameTxt.getText(),lastNameTxt.getText(),addresTxt.getText(),nm,jComboBox1.getName(),nm,dateTextField.getText());
-        studentDao.addStudent(student);     
-        listwindow.addLits(nameTxt.getText(),lastNameTxt.getText(),nmb,dateTextField.getText(),np,nmb,jComboBox1.getName(),addresTxt.getText());
+        
+        
+        Student student = new Student(nameTxt.getText(),lastNameTxt.getText(),addresTxt.getText(),numTextField.getText(),jComboBox1.getSelectedItem().toString(),idTxt.getText(),dateTextField.getText());
+        studentDao.addStudent(student);
+        studentDao.saveStudentsExternally();
+        listwindow.addLits(nameTxt.getText(),lastNameTxt.getText(),idTxt.getText(),dateTextField.getText(),jComboBox1.getSelectedItem().toString(), numTextField.getText(),jComboBox2.getSelectedItem().toString(),addresTxt.getText());
         listwindow.setVisible(true);
         
         
@@ -422,10 +444,8 @@ public class Addwindows extends javax.swing.JFrame {
 
     private void nameTxtMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nameTxtMousePressed
         // TODO add your handling code here:
-      
         nameTxt.setText("");
         nameTxt.setForeground(Color.black);
-      
     }//GEN-LAST:event_nameTxtMousePressed
 
     private void nameTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameTxtActionPerformed
@@ -476,6 +496,7 @@ public class Addwindows extends javax.swing.JFrame {
     private javax.swing.JLabel idLabel;
     private javax.swing.JTextField idTxt;
     private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -494,7 +515,6 @@ public class Addwindows extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField numTextField;
     private javax.swing.JComboBox<String> tipeIdComboBox;
     private javax.swing.JLabel title;
-    private javax.swing.JComboBox<String> typeComboBox3;
     private javax.swing.JLabel userLabel6;
     private javax.swing.JLabel userLabel7;
     // End of variables declaration//GEN-END:variables
