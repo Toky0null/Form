@@ -153,7 +153,7 @@ public class Menu extends javax.swing.JFrame {
         updateBtnTxt1.setForeground(new java.awt.Color(255, 255, 255));
         updateBtnTxt1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         updateBtnTxt1.setText("Actualizar");
-        updateBtnTxt1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        updateBtnTxt1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         updateBtnTxt1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 updateBtnTxt1MouseClicked(evt);
@@ -195,7 +195,7 @@ public class Menu extends javax.swing.JFrame {
         listBtnTxt.setForeground(new java.awt.Color(255, 255, 255));
         listBtnTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         listBtnTxt.setText("Listar");
-        listBtnTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        listBtnTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         listBtnTxt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listBtnTxtMouseClicked(evt);
@@ -237,7 +237,7 @@ public class Menu extends javax.swing.JFrame {
         addBtnTxt2.setForeground(new java.awt.Color(255, 255, 255));
         addBtnTxt2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         addBtnTxt2.setText("Agregar");
-        addBtnTxt2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        addBtnTxt2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         addBtnTxt2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 addBtnTxt2MouseClicked(evt);
@@ -279,7 +279,7 @@ public class Menu extends javax.swing.JFrame {
         deleteBtnTxt1.setForeground(new java.awt.Color(255, 255, 255));
         deleteBtnTxt1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         deleteBtnTxt1.setText("Eliminar");
-        deleteBtnTxt1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        deleteBtnTxt1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         deleteBtnTxt1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 deleteBtnTxt1MouseClicked(evt);
@@ -371,6 +371,8 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         Update update = Update.getInstance();
         update.setVisible(true);
+       
+
         Menu menu=Menu.getInstance();
         menu.setVisible(false);
     }//GEN-LAST:event_updateBtnTxt1MouseClicked

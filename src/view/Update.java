@@ -3,6 +3,13 @@ package view;
 
 import dao.DaoStudentUse;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.AbstractAction;
+import javax.swing.JComponent;
+import javax.swing.JRootPane;
+import javax.swing.KeyStroke;
 import model.Student;
 
 /**
@@ -20,12 +27,14 @@ public class Update extends javax.swing.JFrame {
      */
     public Update() {
         initComponents();
-        
+        configureKeyBindings();
         jTable1.setModel(listwindow.getTableModel());
         for (int i = 0; i < jTable1.getColumnCount(); i++) {
         Class<?> columnClass = jTable1.getColumnClass(i);
         jTable1.setDefaultEditor(columnClass, null);
         } 
+        
+       
     }
     
     public static Update getInstance() {
@@ -34,6 +43,54 @@ public class Update extends javax.swing.JFrame {
         }
         return instance;
     }
+    
+    private void configureKeyBindings() {
+        JRootPane rootPane = this.getRootPane();  // Obtener el JRootPane de la ventana
+        rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "enterPressed");
+        rootPane.getActionMap().put("enterPressed", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Aquí pones lo que quieres que suceda cuando se presiona Enter
+                  DaoStudentUse studentDao = DaoStudentUse.getInstance();
+
+        // Obtiene la fila seleccionada
+        int selectedRow = jTable1.getSelectedRow();
+        
+        // Verifica que una fila esté seleccionada
+        if (selectedRow != -1) {
+            // Obtiene el ID de la fila seleccionada
+            int idToUpdate = (int) jTable1.getValueAt(selectedRow, jTable1.getColumnCount() - 1);
+
+            // Encuentra el estudiante en el Dao
+            Student studentById = studentDao.getStudentById(idToUpdate);
+            if (studentById != null) {
+                // Actualiza los datos del estudiante
+                studentById.setName(nameTxt.getText());
+                studentById.setDocumentId(idTxt.getText()); // Asegúrate de tener este método en tu clase Student
+
+                // Actualiza el estudiante en el Dao
+                studentDao.updateStudent(studentById);
+
+                // Actualiza el archivo del estudiante
+                studentDao.updateStudentFileExternally(studentById);
+
+                // Actualiza el modelo de la tabla
+                listwindow.dtm.setValueAt(nameTxt.getText() + " " + lastNameTxt.getText(), selectedRow, 0);
+                listwindow.dtm.setValueAt(idTxt.getText(), selectedRow, 1); // Suponiendo que ID documento está en la columna 1
+
+                System.out.println("Estudiante actualizado: " + studentById.getName());
+            } else {
+                System.out.println("Estudiante con ID " + idToUpdate + " no encontrado.");
+            }
+        } else {
+            System.out.println("No se seleccionó ninguna fila.");
+        }
+                
+            }
+        });
+    }
+
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -173,7 +230,7 @@ public class Update extends javax.swing.JFrame {
         updateBtnTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         updateBtnTxt.setText("Actualizar");
         updateBtnTxt.setToolTipText("");
-        updateBtnTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        updateBtnTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         updateBtnTxt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 updateBtnTxtMouseClicked(evt);
@@ -239,11 +296,6 @@ public class Update extends javax.swing.JFrame {
                 nameTxtMousePressed(evt);
             }
         });
-        nameTxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nameTxtActionPerformed(evt);
-            }
-        });
         bg.add(nameTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 170, 30));
 
         jSeparator4.setForeground(new java.awt.Color(51, 51, 51));
@@ -262,11 +314,6 @@ public class Update extends javax.swing.JFrame {
                 addresTxtMousePressed(evt);
             }
         });
-        addresTxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addresTxtActionPerformed(evt);
-            }
-        });
         bg.add(addresTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 420, 170, 30));
 
         jSeparator1.setForeground(new java.awt.Color(51, 51, 51));
@@ -279,11 +326,6 @@ public class Update extends javax.swing.JFrame {
         idTxt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 idTxtMousePressed(evt);
-            }
-        });
-        idTxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idTxtActionPerformed(evt);
             }
         });
         bg.add(idTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 420, 170, 30));
@@ -309,11 +351,6 @@ public class Update extends javax.swing.JFrame {
         dateTextField.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 dateTextFieldMousePressed(evt);
-            }
-        });
-        dateTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dateTextFieldActionPerformed(evt);
             }
         });
         bg.add(dateTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 420, 170, 30));
@@ -367,11 +404,6 @@ public class Update extends javax.swing.JFrame {
                 numTextFieldMousePressed(evt);
             }
         });
-        numTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                numTextFieldActionPerformed(evt);
-            }
-        });
         bg.add(numTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 420, 160, 30));
 
         jSeparator7.setForeground(new java.awt.Color(51, 51, 51));
@@ -403,7 +435,7 @@ public class Update extends javax.swing.JFrame {
         seleccBtnTxt1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         seleccBtnTxt1.setText("Seleccionar");
         seleccBtnTxt1.setToolTipText("");
-        seleccBtnTxt1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        seleccBtnTxt1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         seleccBtnTxt1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 seleccBtnTxt1MouseClicked(evt);
@@ -482,43 +514,6 @@ public class Update extends javax.swing.JFrame {
         yMouse = evt.getY();
     }//GEN-LAST:event_headerMousePressed
 
-    private void updateBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateBtnTxtMouseClicked
-           DaoStudentUse studentDao = DaoStudentUse.getInstance();
-
-        // Obtiene la fila seleccionada
-        int selectedRow = jTable1.getSelectedRow();
-    
-         // Verifica que una fila esté seleccionada
-         if (selectedRow != -1) {
-        // Obtiene el ID de la fila seleccionada
-        int idToUpdate = (int) jTable1.getValueAt(selectedRow, jTable1.getColumnCount() - 1);
-
-        // Encuentra el estudiante en el Dao
-        Student studentById = studentDao.getStudentById(idToUpdate);
-        if (studentById != null) {
-            // Actualiza los datos del estudiante
-            studentById.setName(nameTxt.getText());
-            studentById.setDocumentId(idTxt.getText()); // Asegúrate de tener este método en tu clase Student
-
-            // Actualiza el estudiante en el Dao
-            studentDao.updateStudent(studentById);
-            
-            // Actualiza el archivo del estudiante
-            studentDao.updateStudentFileExternally(studentById);
-
-            // Actualiza el modelo de la tabla
-            listwindow.dtm.setValueAt(nameTxt.getText() + " " + lastNameTxt.getText(), selectedRow, 0);
-            listwindow.dtm.setValueAt(idTxt.getText(), selectedRow, 1); // Suponiendo que ID documento está en la columna 1
-
-            System.out.println("Estudiante actualizado: " + studentById.getName());
-        } else {
-            System.out.println("Estudiante con ID " + idToUpdate + " no encontrado.");
-        }
-        } else {
-        System.out.println("No se seleccionó ninguna fila.");
-        }
-    }//GEN-LAST:event_updateBtnTxtMouseClicked
-
     private void updateBtnTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateBtnTxtMouseEntered
         updateBtn.setBackground(new Color(0, 156, 223));
     }//GEN-LAST:event_updateBtnTxtMouseEntered
@@ -533,19 +528,11 @@ public class Update extends javax.swing.JFrame {
         nameTxt.setForeground(Color.black);
     }//GEN-LAST:event_nameTxtMousePressed
 
-    private void nameTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameTxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nameTxtActionPerformed
-
     private void addresTxtMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addresTxtMousePressed
         // TODO add your handling code here:
         addresTxt.setText("");
         addresTxt.setForeground(Color.black);
     }//GEN-LAST:event_addresTxtMousePressed
-
-    private void addresTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addresTxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addresTxtActionPerformed
 
     private void idTxtMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_idTxtMousePressed
         // TODO add your handling code here:
@@ -553,19 +540,11 @@ public class Update extends javax.swing.JFrame {
         idTxt.setForeground(Color.black);
     }//GEN-LAST:event_idTxtMousePressed
 
-    private void idTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idTxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_idTxtActionPerformed
-
     private void dateTextFieldMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dateTextFieldMousePressed
         // TODO add your handling code here:
         dateTextField.setText("");
         dateTextField.setForeground(Color.black);
     }//GEN-LAST:event_dateTextFieldMousePressed
-
-    private void dateTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dateTextFieldActionPerformed
 
     private void lastNameTxtMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lastNameTxtMousePressed
         // TODO add your handling code here:
@@ -578,10 +557,6 @@ public class Update extends javax.swing.JFrame {
         numTextField.setText("");
         numTextField.setForeground(Color.black);
     }//GEN-LAST:event_numTextFieldMousePressed
-
-    private void numTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_numTextFieldActionPerformed
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         // TODO add your handling code here:
@@ -620,10 +595,12 @@ public class Update extends javax.swing.JFrame {
 
     private void seleccBtnTxt1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seleccBtnTxt1MouseEntered
         // TODO add your handling code here:
+        seleccBtn1.setBackground(new Color(0, 156, 223));
     }//GEN-LAST:event_seleccBtnTxt1MouseEntered
 
     private void seleccBtnTxt1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seleccBtnTxt1MouseExited
         // TODO add your handling code here:
+        seleccBtn1.setBackground(new Color(0,134,190));
     }//GEN-LAST:event_seleccBtnTxt1MouseExited
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
@@ -634,6 +611,46 @@ public class Update extends javax.swing.JFrame {
         update.setVisible(false);
     }//GEN-LAST:event_jLabel1MouseClicked
 
+    private void updateBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateBtnTxtMouseClicked
+        // TODO add your handling code here:     
+          DaoStudentUse studentDao = DaoStudentUse.getInstance();
+
+        // Obtiene la fila seleccionada
+        int selectedRow = jTable1.getSelectedRow();
+        
+        // Verifica que una fila esté seleccionada
+        if (selectedRow != -1) {
+            // Obtiene el ID de la fila seleccionada
+            int idToUpdate = (int) jTable1.getValueAt(selectedRow, jTable1.getColumnCount() - 1);
+
+            // Encuentra el estudiante en el Dao
+            Student studentById = studentDao.getStudentById(idToUpdate);
+            if (studentById != null) {
+                // Actualiza los datos del estudiante
+                studentById.setName(nameTxt.getText());
+                studentById.setDocumentId(idTxt.getText()); // Asegúrate de tener este método en tu clase Student
+
+                // Actualiza el estudiante en el Dao
+                studentDao.updateStudent(studentById);
+
+                // Actualiza el archivo del estudiante
+                studentDao.updateStudentFileExternally(studentById);
+
+                // Actualiza el modelo de la tabla
+                listwindow.dtm.setValueAt(nameTxt.getText() + " " + lastNameTxt.getText(), selectedRow, 0);
+                listwindow.dtm.setValueAt(idTxt.getText(), selectedRow, 1); // Suponiendo que ID documento está en la columna 1
+
+                System.out.println("Estudiante actualizado: " + studentById.getName());
+            } else {
+                System.out.println("Estudiante con ID " + idToUpdate + " no encontrado.");
+            }
+        } else {
+            System.out.println("No se seleccionó ninguna fila.");
+        }  
+  
+        
+    }//GEN-LAST:event_updateBtnTxtMouseClicked
+     
     /**
      * @param args the command line arguments
      */

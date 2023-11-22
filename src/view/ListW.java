@@ -168,7 +168,7 @@ public class ListW extends javax.swing.JFrame {
         studentBtnTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         studentBtnTxt.setText("Estudiantes");
         studentBtnTxt.setToolTipText("");
-        studentBtnTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        studentBtnTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         studentBtnTxt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 studentBtnTxtMouseClicked(evt);
@@ -210,7 +210,7 @@ public class ListW extends javax.swing.JFrame {
         allBtnTxt.setForeground(new java.awt.Color(255, 255, 255));
         allBtnTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         allBtnTxt.setText("Todos");
-        allBtnTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        allBtnTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         allBtnTxt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 allBtnTxtMouseClicked(evt);
@@ -253,7 +253,7 @@ public class ListW extends javax.swing.JFrame {
         teacherBtnTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         teacherBtnTxt.setText("Profesor");
         teacherBtnTxt.setToolTipText("");
-        teacherBtnTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        teacherBtnTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         teacherBtnTxt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 teacherBtnTxtMouseClicked(evt);
