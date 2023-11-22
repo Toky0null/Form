@@ -4,16 +4,21 @@
  */
 package view;
 
+import dao.DaoStudentUse;
 import java.awt.Color;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import model.Contact;
 
 /**
  *
  * @author tokyo
  */
 public class ListW extends javax.swing.JFrame {
+        List<Contact> contact;
         DefaultTableModel dtm = new DefaultTableModel();
         private static ListW instance = null;
+        DaoStudentUse studentDao = DaoStudentUse.getInstance();
         int xMouse, yMouse;
     /**
      * Creates new form ListWindow
@@ -347,7 +352,21 @@ public class ListW extends javax.swing.JFrame {
     }//GEN-LAST:event_headerMousePressed
 
     private void teacherBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teacherBtnTxtMouseClicked
-        
+      DaoStudentUse studentDao = DaoStudentUse.getInstance();
+        ListW listwindow = ListW.getInstance();
+
+        contact = studentDao.getContactsByType("Profesor");
+        listwindow.getTableModel().setRowCount(0);
+
+        for (Contact studentById : contact) {
+    if (studentById != null) {
+        String name = studentById.getName();
+        listwindow.addLits(name, studentById.getLastName(), studentById.getDocumentId(), studentById.getDate(),
+                           studentById.getTypeC(), studentById.getPhoneNumber(), studentById.getTypePhone(), studentById.getAddres(), studentById.getCodeId());
+    } else {
+        System.out.println("No se encontró ningún estudiante.");
+    }
+}
     }//GEN-LAST:event_teacherBtnTxtMouseClicked
 
     private void teacherBtnTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teacherBtnTxtMouseEntered
@@ -360,6 +379,23 @@ public class ListW extends javax.swing.JFrame {
 
     private void studentBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentBtnTxtMouseClicked
         // TODO add your handling code here:
+        DaoStudentUse studentDao = DaoStudentUse.getInstance();
+        ListW listwindow = ListW.getInstance();
+
+        contact = studentDao.getContactsByType("Estudiante");
+        listwindow.getTableModel().setRowCount(0);
+
+        for (Contact studentById : contact) {
+    if (studentById != null) {
+        String name = studentById.getName();
+        listwindow.addLits(name, studentById.getLastName(), studentById.getDocumentId(), studentById.getDate(),
+                           studentById.getTypeC(), studentById.getPhoneNumber(), studentById.getTypePhone(), studentById.getAddres(), studentById.getCodeId());
+    } else {
+        System.out.println("No se encontró ningún estudiante.");
+    }
+}
+
+        
     }//GEN-LAST:event_studentBtnTxtMouseClicked
 
     private void studentBtnTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentBtnTxtMouseEntered
@@ -372,6 +408,19 @@ public class ListW extends javax.swing.JFrame {
 
     private void allBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_allBtnTxtMouseClicked
         // TODO add your handling code here:
+        ListW listwindow =  ListW.getInstance();
+        listwindow.getTableModel().setRowCount(0);
+        
+        for (int i = 1; i <= studentDao.getTotalStudentsLoaded()+1; i++) {
+        Contact studentById = studentDao.getStudent(i);
+        if (studentById != null) {      
+        String name = studentById.getName();
+        listwindow.addLits(name, studentById.getLastName(), studentById.getDocumentId(), studentById.getDate(),
+               studentById.getTypeC() , studentById.getPhoneNumber(), studentById.getTypePhone(), studentById.getAddres(),studentById.getCodeId());
+        } else {
+        System.out.println("No se encontró ningún estudiante con ID: " + i);
+        }   
+      }
     }//GEN-LAST:event_allBtnTxtMouseClicked
 
     private void allBtnTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_allBtnTxtMouseEntered

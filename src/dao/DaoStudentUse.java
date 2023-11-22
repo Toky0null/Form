@@ -16,14 +16,14 @@ import model.Contact;
  * @author tokyo
  */
 public class DaoStudentUse implements IEstudensDao {
-    List<Contact> students;
+    List<Contact> contact;
     private static DaoStudentUse instance = null;
     private static final String FILE_DIRECTORY = "src/model/files/";
     private int totalStudentsLoaded; // Variable para almacenar el total de estudiantes cargados
 
 
     public DaoStudentUse(){
-    this.students = new ArrayList<>();
+    this.contact = new ArrayList<>();
     loadStudents();
     
     }
@@ -32,13 +32,13 @@ public class DaoStudentUse implements IEstudensDao {
 
     @Override
     public List<Contact> getAllStudent() {
-        return students;
+        return contact;
     }
     
     
     public Contact getStudent(int studentId){
         Contact student = null;
-        for(Contact actual : students){
+        for(Contact actual : contact){
             if(actual.getCodeId() == studentId){
                 student = actual;
                 break;
@@ -73,16 +73,16 @@ public class DaoStudentUse implements IEstudensDao {
     
     @Override
     public boolean addStudent(Contact student) {
-        students.add(student);
+        contact.add(student);
         System.out.println("agregado "+ student.getName() +" "+ student.getLastName());
         return true;
     }
 
     @Override
     public boolean updateStudent(Contact student) {
-        if(students.contains(student)){
-            int pos = students.indexOf(student);
-            students.set(pos, student);
+        if(contact.contains(student)){
+            int pos = contact.indexOf(student);
+            contact.set(pos, student);
             return true;
         
         }
@@ -92,7 +92,7 @@ public class DaoStudentUse implements IEstudensDao {
 
     @Override
     public boolean deleteStudent(Contact student) {
-        students.remove(student);
+        contact.remove(student);
          System.out.println("Eliminado" + student.getName());
         return true;
     }
@@ -110,7 +110,7 @@ public class DaoStudentUse implements IEstudensDao {
     }
     
     public int getsizeSt(){
-        return students.size();
+        return contact.size();
     }    
 
     private void loadStudents() {
@@ -141,8 +141,8 @@ public class DaoStudentUse implements IEstudensDao {
                 }
             }
 
-            students = loadedStudents;
-            totalStudentsLoaded = students.size(); // Guardar el total de estudiantes cargados
+            contact = loadedStudents;
+            totalStudentsLoaded = contact.size(); // Guardar el total de estudiantes cargados
 
             // Asegurar que el próximo ID sea mayor que el último encontrado
             int nextId = lastId + 1;
@@ -198,8 +198,8 @@ public class DaoStudentUse implements IEstudensDao {
     }
    
     public boolean deleteStudentByIndex(int index) {
-    if (index >= 0 && index < students.size()) {
-        Contact removedStudent = students.remove(index);
+    if (index >= 0 && index < contact.size()) {
+        Contact removedStudent = contact.remove(index);
         if (removedStudent != null) {
             System.out.println("Eliminado " + removedStudent.getName());
             return true;
@@ -210,8 +210,8 @@ public class DaoStudentUse implements IEstudensDao {
 
     @Override
     public boolean deleteStudentI(int index) {
-    if (index >= 0 && index < students.size()) {
-        Contact removedStudent = students.remove(index);
+    if (index >= 0 && index < contact.size()) {
+        Contact removedStudent = contact.remove(index);
         if (removedStudent != null) {
             System.out.println("Eliminado " + removedStudent.getName());
             return true;
@@ -226,7 +226,7 @@ public class DaoStudentUse implements IEstudensDao {
      * @return El estudiante si se encuentra, de lo contrario null.
      */
     public Contact getStudentById(int id) {
-        for (Contact student : students) {
+        for (Contact student : contact) {
             if (student.getCodeId() == id) {
                 return student;
             }
@@ -234,7 +234,15 @@ public class DaoStudentUse implements IEstudensDao {
         return null; // Retorna null si no encuentra el estudiante
     }
 
-
+    public List<Contact> getContactsByType(String type) {
+    List<Contact> filteredContacts = new ArrayList<>();
+    for (Contact contact : contact) {
+        if (contact.getTypeC().equalsIgnoreCase(type)) {
+            filteredContacts.add(contact);
+        }
+    }
+    return filteredContacts;
+}
 }
     
     
