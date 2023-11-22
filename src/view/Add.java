@@ -2,7 +2,7 @@ package view;
 
 import dao.DaoStudentUse;
 import java.awt.Color;
-import model.Student;
+import model.Contact;
 import view.NoBorderComboBoxUI;
 
 public class Add extends javax.swing.JFrame {
@@ -207,7 +207,7 @@ public class Add extends javax.swing.JFrame {
 
         jComboBox1.setEditable(true);
         jComboBox1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Profesor", "Estudiante" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Profesor", "Estudiante", "Empleado" }));
         jComboBox1.setBorder(null);
         bg.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 150, 160, 30));
 
@@ -418,7 +418,7 @@ public class Add extends javax.swing.JFrame {
         ListW listwindow =  ListW.getInstance();
         
         
-        Student student = new Student(nameTxt.getText(),lastNameTxt.getText(),addresTxt.getText(),numTextField.getText(),jComboBox2.getSelectedItem().toString(),idTxt.getText(),dateTextField.getText(),jComboBox1.getSelectedItem().toString());
+        Contact student = new Contact(nameTxt.getText(),lastNameTxt.getText(),addresTxt.getText(),numTextField.getText(),jComboBox2.getSelectedItem().toString(),idTxt.getText(),dateTextField.getText(),jComboBox1.getSelectedItem().toString());
         studentDao.addStudent(student);
         studentDao.saveStudentsExternally(student);
         listwindow.addLits(nameTxt.getText(),lastNameTxt.getText(),idTxt.getText(),dateTextField.getText(),jComboBox1.getSelectedItem().toString(), numTextField.getText(),jComboBox1.getSelectedItem().toString(),addresTxt.getText(),student.getCodeId());

@@ -9,14 +9,14 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import model.Student;
+import model.Contact;
 
 /**
  *
  * @author tokyo
  */
 public class DaoStudentUse implements IEstudensDao {
-    List<Student> students;
+    List<Contact> students;
     private static DaoStudentUse instance = null;
     private static final String FILE_DIRECTORY = "src/model/files/";
     private int totalStudentsLoaded; // Variable para almacenar el total de estudiantes cargados
@@ -31,14 +31,14 @@ public class DaoStudentUse implements IEstudensDao {
     
 
     @Override
-    public List<Student> getAllStudent() {
+    public List<Contact> getAllStudent() {
         return students;
     }
     
     
-    public Student getStudent(int studentId){
-        Student student = null;
-        for(Student actual : students){
+    public Contact getStudent(int studentId){
+        Contact student = null;
+        for(Contact actual : students){
             if(actual.getCodeId() == studentId){
                 student = actual;
                 break;
@@ -49,7 +49,7 @@ public class DaoStudentUse implements IEstudensDao {
     
     }
     
-    private void saveStudent(Student student) {
+    private void saveStudent(Contact student) {
         int nextId = student.getCodeId(); // Obtener el próximo ID disponible
         String filePath = FILE_DIRECTORY + "student_" + nextId + ".ser";
 
@@ -61,25 +61,25 @@ public class DaoStudentUse implements IEstudensDao {
             System.out.println("Estudiante guardado en " + filePath);
 
             // Actualizar el siguiente ID para el siguiente estudiante
-            Student.setNextId(nextId + 1);
+            Contact.setNextId(nextId + 1);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     
-    public void saveStudentsExternally(Student student) {
+    public void saveStudentsExternally(Contact student) {
         saveStudent(student); // Llamada al método privado para guardar estudiantes
     }
     
     @Override
-    public boolean addStudent(Student student) {
+    public boolean addStudent(Contact student) {
         students.add(student);
         System.out.println("agregado "+ student.getName() +" "+ student.getLastName());
         return true;
     }
 
     @Override
-    public boolean updateStudent(Student student) {
+    public boolean updateStudent(Contact student) {
         if(students.contains(student)){
             int pos = students.indexOf(student);
             students.set(pos, student);
@@ -91,7 +91,7 @@ public class DaoStudentUse implements IEstudensDao {
     }
 
     @Override
-    public boolean deleteStudent(Student student) {
+    public boolean deleteStudent(Contact student) {
         students.remove(student);
          System.out.println("Eliminado" + student.getName());
         return true;
@@ -118,15 +118,15 @@ public class DaoStudentUse implements IEstudensDao {
         File[] files = directory.listFiles();
 
         if (files != null) {
-            List<Student> loadedStudents = new ArrayList<>();
+            List<Contact> loadedStudents = new ArrayList<>();
             int lastId = 0;
 
             for (File file : files) {
                 if (file.isFile() && file.getName().startsWith("student_")) {
                     try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(file))) {
                         Object obj = inputStream.readObject();
-                        if (obj instanceof Student) {
-                            Student student = (Student) obj;
+                        if (obj instanceof Contact) {
+                            Contact student = (Contact) obj;
                             loadedStudents.add(student);
                             int fileId = student.getCodeId();
                             if (fileId > lastId) {
@@ -146,7 +146,7 @@ public class DaoStudentUse implements IEstudensDao {
 
             // Asegurar que el próximo ID sea mayor que el último encontrado
             int nextId = lastId + 1;
-            Student.setNextId(nextId);
+            Contact.setNextId(nextId);
             System.out.println(totalStudentsLoaded);
         } else {
             System.out.println("No se encontraron archivos de estudiantes en la ruta especificada.");
@@ -157,7 +157,7 @@ public class DaoStudentUse implements IEstudensDao {
         loadStudents(); // Llamada al método privado para cargar
     }
    
-    public void updateStudentFile(Student student) {
+    public void updateStudentFile(Contact student) {
         // Encontrar el archivo correspondiente al estudiante y actualizarlo
         String filePath = FILE_DIRECTORY + "student_" + student.getCodeId() + ".ser";
         File file = new File(filePath);
@@ -175,7 +175,7 @@ public class DaoStudentUse implements IEstudensDao {
         }
     }
    
-    public void updateStudentFileExternally(Student student) {
+    public void updateStudentFileExternally(Contact student) {
         updateStudentFile(student); // Llamada al método privado para guardar estudiantes
     }
     
@@ -199,7 +199,7 @@ public class DaoStudentUse implements IEstudensDao {
    
     public boolean deleteStudentByIndex(int index) {
     if (index >= 0 && index < students.size()) {
-        Student removedStudent = students.remove(index);
+        Contact removedStudent = students.remove(index);
         if (removedStudent != null) {
             System.out.println("Eliminado " + removedStudent.getName());
             return true;
@@ -211,7 +211,7 @@ public class DaoStudentUse implements IEstudensDao {
     @Override
     public boolean deleteStudentI(int index) {
     if (index >= 0 && index < students.size()) {
-        Student removedStudent = students.remove(index);
+        Contact removedStudent = students.remove(index);
         if (removedStudent != null) {
             System.out.println("Eliminado " + removedStudent.getName());
             return true;
@@ -225,8 +225,8 @@ public class DaoStudentUse implements IEstudensDao {
      * @param id El ID del estudiante a buscar.
      * @return El estudiante si se encuentra, de lo contrario null.
      */
-    public Student getStudentById(int id) {
-        for (Student student : students) {
+    public Contact getStudentById(int id) {
+        for (Contact student : students) {
             if (student.getCodeId() == id) {
                 return student;
             }

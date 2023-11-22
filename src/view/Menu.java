@@ -2,7 +2,7 @@ package view;
 
 import dao.DaoStudentUse;
 import java.awt.Color;
-import model.Student;
+import model.Contact;
 
 public class Menu extends javax.swing.JFrame {
     ListW listwindow =  ListW.getInstance();
@@ -13,7 +13,7 @@ public class Menu extends javax.swing.JFrame {
     public Menu() {
         initComponents();    
         for (int i = 1; i <= studentDao.getTotalStudentsLoaded()+1; i++) {
-        Student studentById = studentDao.getStudent(i);
+        Contact studentById = studentDao.getStudent(i);
         if (studentById != null) {      
         String name = studentById.getName();
         listwindow.addLits(name, studentById.getLastName(), studentById.getDocumentId(), studentById.getDate(),

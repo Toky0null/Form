@@ -10,7 +10,7 @@ import javax.swing.AbstractAction;
 import javax.swing.JComponent;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
-import model.Student;
+import model.Contact;
 
 /**
  *
@@ -19,7 +19,7 @@ import model.Student;
 public class Update extends javax.swing.JFrame {
     int xMouse, yMouse;
     private static Update instance = null;
-    ListW listwindow =  ListW.getInstance();
+    ListW listWindow =  ListW.getInstance();
     private int selectedRow;
 
     /**
@@ -28,7 +28,7 @@ public class Update extends javax.swing.JFrame {
     public Update() {
         initComponents();
         configureKeyBindings();
-        jTable1.setModel(listwindow.getTableModel());
+        jTable1.setModel(listWindow.getTableModel());
         for (int i = 0; i < jTable1.getColumnCount(); i++) {
         Class<?> columnClass = jTable1.getColumnClass(i);
         jTable1.setDefaultEditor(columnClass, null);
@@ -62,7 +62,7 @@ public class Update extends javax.swing.JFrame {
             int idToUpdate = (int) jTable1.getValueAt(selectedRow, jTable1.getColumnCount() - 1);
 
             // Encuentra el estudiante en el Dao
-            Student studentById = studentDao.getStudentById(idToUpdate);
+            Contact studentById = studentDao.getStudentById(idToUpdate);
             if (studentById != null) {
                 // Actualiza los datos del estudiante
                 studentById.setName(nameTxt.getText());
@@ -75,8 +75,8 @@ public class Update extends javax.swing.JFrame {
                 studentDao.updateStudentFileExternally(studentById);
 
                 // Actualiza el modelo de la tabla
-                listwindow.dtm.setValueAt(nameTxt.getText() + " " + lastNameTxt.getText(), selectedRow, 0);
-                listwindow.dtm.setValueAt(idTxt.getText(), selectedRow, 1); // Suponiendo que ID documento está en la columna 1
+                listWindow.dtm.setValueAt(nameTxt.getText() + " " + lastNameTxt.getText(), selectedRow, 0);
+                listWindow.dtm.setValueAt(idTxt.getText(), selectedRow, 1); // Suponiendo que ID documento está en la columna 1
 
                 System.out.println("Estudiante actualizado: " + studentById.getName());
             } else {
@@ -570,7 +570,7 @@ public class Update extends javax.swing.JFrame {
         if (selectedRow > studentDao.getsizeSt()){
          selectedRow--;
         }
-        Student studentById = studentDao.getStudent(selectedRow );
+        Contact studentById = studentDao.getStudent(selectedRow );
         if (studentById != null) {
             System.out.println("Estudiante encontrado: " + studentById.getName() + " " + "fila " + selectedRow );
         } else {
@@ -624,11 +624,12 @@ public class Update extends javax.swing.JFrame {
             int idToUpdate = (int) jTable1.getValueAt(selectedRow, jTable1.getColumnCount() - 1);
 
             // Encuentra el estudiante en el Dao
-            Student studentById = studentDao.getStudentById(idToUpdate);
+            Contact studentById = studentDao.getStudentById(idToUpdate);
             if (studentById != null) {
                 // Actualiza los datos del estudiante
                 studentById.setName(nameTxt.getText());
-                studentById.setDocumentId(idTxt.getText()); // Asegúrate de tener este método en tu clase Student
+                studentById.setDocumentId(idTxt.getText());
+                studentById.setDate(dateTextField.getText());
 
                 // Actualiza el estudiante en el Dao
                 studentDao.updateStudent(studentById);
@@ -637,8 +638,9 @@ public class Update extends javax.swing.JFrame {
                 studentDao.updateStudentFileExternally(studentById);
 
                 // Actualiza el modelo de la tabla
-                listwindow.dtm.setValueAt(nameTxt.getText() + " " + lastNameTxt.getText(), selectedRow, 0);
-                listwindow.dtm.setValueAt(idTxt.getText(), selectedRow, 1); // Suponiendo que ID documento está en la columna 1
+                listWindow.dtm.setValueAt(nameTxt.getText() + " " + lastNameTxt.getText(), selectedRow, 0);
+                listWindow.dtm.setValueAt(idTxt.getText(), selectedRow, 1); // Suponiendo que ID documento está en la columna 1
+                listWindow.dtm.setValueAt(dateTextField.getText(), selectedRow, 2);
 
                 System.out.println("Estudiante actualizado: " + studentById.getName());
             } else {

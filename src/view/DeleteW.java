@@ -6,7 +6,7 @@ package view;
 
 import dao.DaoStudentUse;
 import java.awt.Color;
-import model.Student;
+import model.Contact;
 
 /**
  *
@@ -255,7 +255,7 @@ public class DeleteW extends javax.swing.JFrame {
         idToDelete = (int) jTable1.getValueAt(selectedRow, jTable1.getColumnCount() - 1);
 
         // Encuentra y elimina al estudiante en el Dao
-        Student studentById = studentDao.getStudentById(idToDelete);
+        Contact studentById = studentDao.getStudentById(idToDelete);
         if (studentById != null) {
             studentDao.deleteStudent(studentById);
             studentDao.deleteStudentFile(studentById.getCodeId());

@@ -6,7 +6,7 @@ import java.io.Serializable;
  * @author tokyo
  */
 
-public class Student implements Serializable {
+public class Contact implements Serializable {
     private static final long serialVersionUID = 1L; // Identificador de versión para la serialización
     private static int idCounter = 0;
     private static int nextId = 1;
@@ -27,7 +27,7 @@ public class Student implements Serializable {
     private String typeC;
     
      
-    public Student(String name,String lastname,String address,String phoneNumber,String typePhone,String documentId,String date,String typeC) {
+    public Contact(String name,String lastname,String address,String phoneNumber,String typePhone,String documentId,String date,String typeC) {
         idCounter++;
         this.idCode = idCounter;
         this.name = name;
@@ -112,7 +112,7 @@ public class Student implements Serializable {
     }
     
      public static void setNextId(int nextId) {
-        Student.nextId = nextId;
+        Contact.nextId = nextId;
     }
     public int getCodeId() {
         return  codeId;
