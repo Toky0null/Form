@@ -12,15 +12,15 @@ import model.Student;
  *
  * @author tokyo
  */
-public class DeleteWindow extends javax.swing.JFrame {
+public class DeleteW extends javax.swing.JFrame {
     int xMouse, yMouse;
-    private static DeleteWindow instance = null;
-    ListWindow listwindow =  ListWindow.getInstance();
+    private static DeleteW instance = null;
+    ListW listwindow =  ListW.getInstance();
     private int fila;
     /**
      * Creates new form DeleteWindow
      */
-    public DeleteWindow() {
+    public DeleteW() {
         initComponents();
         
         jTable1.setModel(listwindow.getTableModel());
@@ -30,9 +30,9 @@ public class DeleteWindow extends javax.swing.JFrame {
         } 
     }
     
-    public static DeleteWindow getInstance() {
+    public static DeleteW getInstance() {
         if (instance == null) {
-            instance = new DeleteWindow();
+            instance = new DeleteW();
         }
         return instance;
     }
@@ -108,6 +108,11 @@ public class DeleteWindow extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/flechas-izquierda.png"))); // NOI18N
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
@@ -239,16 +244,23 @@ public class DeleteWindow extends javax.swing.JFrame {
 
     private void deleteBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteBtnTxtMouseClicked
         DaoStudentUse studentDao = DaoStudentUse.getInstance();
-        fila = jTable1.getSelectedRow();
-        Student studentById = studentDao.getStudent(fila +1);
-        if (studentById != null) {
-            System.out.println("Estudiante encontrado: " + studentById.getName());
-        } else {
-            System.out.println("Estudiante " + fila +" no encontrado" );
+        fila = jTable1.getSelectedRow()+1;
+        
+        if (fila > studentDao.getsizeSt()){
+         fila--;
         }
-          
+        Student studentById = studentDao.getStudent(fila );
+        if (studentById != null) {
+            System.out.println("Estudiante encontrado: " + studentById.getName() + " " + "fila " + fila );
+        } else {
+            System.out.println("Estudiante " + (fila) +" no encontrado" );
+        }
+       
+        //studentDao.deleteStudentI(fila +1 );
+        
         studentDao.deleteStudent(studentById);
-        listwindow.delete(fila);
+        studentDao.deleteStudentFile(studentById.getCodeId());
+        listwindow.delete(fila-1);
     }//GEN-LAST:event_deleteBtnTxtMouseClicked
 
     private void deleteBtnTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteBtnTxtMouseEntered
@@ -258,6 +270,14 @@ public class DeleteWindow extends javax.swing.JFrame {
     private void deleteBtnTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteBtnTxtMouseExited
         deteleBtn.setBackground(new Color(0,134,190));
     }//GEN-LAST:event_deleteBtnTxtMouseExited
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        // TODO add your handling code here:
+        Menu menu=   Menu.getInstance();
+        menu.setVisible(true);
+        DeleteW delete = DeleteW.getInstance();
+        delete.setVisible(false);
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
      * @param args the command line arguments

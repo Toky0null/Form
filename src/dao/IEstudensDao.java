@@ -12,5 +12,6 @@ public interface IEstudensDao {
     public boolean addStudent(Student studen);
     public boolean updateStudent(Student studen);
     public boolean deleteStudent(Student studen);
+    public boolean deleteStudentI(int index);
     
 }

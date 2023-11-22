@@ -5,8 +5,8 @@ import java.awt.Color;
 import model.Student;
 import view.NoBorderComboBoxUI;
 
-public class Addwindows extends javax.swing.JFrame {
-    private static Addwindows instance = null;
+public class Add extends javax.swing.JFrame {
+    private static Add instance = null;
     int xMouse, yMouse;
     
     
@@ -14,16 +14,16 @@ public class Addwindows extends javax.swing.JFrame {
         jComboBox1.setUI(new NoBorderComboBoxUI());
     }
     
-    public Addwindows() {
+    public Add() {
         initComponents();
         
     }
     
     
     
-    public static Addwindows getInstance() {
+    public static Add getInstance() {
         if (instance == null) {
-            instance = new Addwindows();
+            instance = new Add();
         }
         return instance;
     }
@@ -43,8 +43,10 @@ public class Addwindows extends javax.swing.JFrame {
         addBtn = new javax.swing.JPanel();
         addBtnTxt = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
+        userLabel7 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jSeparator3 = new javax.swing.JSeparator();
+        addressLabel = new javax.swing.JLabel();
         addresTxt = new javax.swing.JTextField();
         jSeparator4 = new javax.swing.JSeparator();
         lastNameLabel = new javax.swing.JLabel();
@@ -59,11 +61,9 @@ public class Addwindows extends javax.swing.JFrame {
         nameLabel = new javax.swing.JLabel();
         nameTxt = new javax.swing.JTextField();
         jSeparator7 = new javax.swing.JSeparator();
-        userLabel6 = new javax.swing.JLabel();
         dateLabel = new javax.swing.JLabel();
         dateTextField = new javax.swing.JFormattedTextField();
         jSeparator8 = new javax.swing.JSeparator();
-        userLabel7 = new javax.swing.JLabel();
         jComboBox2 = new javax.swing.JComboBox<>();
         jSeparator9 = new javax.swing.JSeparator();
 
@@ -120,6 +120,11 @@ public class Addwindows extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/flechas-izquierda.png"))); // NOI18N
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
@@ -149,7 +154,7 @@ public class Addwindows extends javax.swing.JFrame {
         bg.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
-        bg.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 210, 20));
+        bg.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 160, 20));
 
         addBtn.setBackground(new java.awt.Color(0, 134, 190));
 
@@ -194,16 +199,24 @@ public class Addwindows extends javax.swing.JFrame {
         bg.add(addBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 470, 130, 40));
 
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
-        bg.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 350, 210, 20));
+        bg.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 350, 200, 20));
+
+        userLabel7.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
+        userLabel7.setText("TIPO DE CONTACTO");
+        bg.add(userLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 130, -1, -1));
 
         jComboBox1.setEditable(true);
         jComboBox1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Profesor", "Estudiante" }));
         jComboBox1.setBorder(null);
-        bg.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 150, 210, 30));
+        bg.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 150, 160, 30));
 
         jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
         bg.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 430, 210, 20));
+
+        addressLabel.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
+        addressLabel.setText("DIRECCIÓN");
+        bg.add(addressLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 130, -1, -1));
 
         addresTxt.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         addresTxt.setForeground(new java.awt.Color(204, 204, 204));
@@ -272,7 +285,7 @@ public class Addwindows extends javax.swing.JFrame {
         tipeIdComboBox.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         tipeIdComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "C.C", "T.I", "Pasapórte extrajero", "NIT" }));
         tipeIdComboBox.setBorder(null);
-        bg.add(tipeIdComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, 210, 30));
+        bg.add(tipeIdComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, 160, 30));
 
         idTxt.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         idTxt.setForeground(new java.awt.Color(204, 204, 204));
@@ -288,7 +301,7 @@ public class Addwindows extends javax.swing.JFrame {
                 idTxtActionPerformed(evt);
             }
         });
-        bg.add(idTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 320, 210, 30));
+        bg.add(idTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 320, 200, 30));
 
         jSeparator6.setForeground(new java.awt.Color(0, 0, 0));
         bg.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 210, 20));
@@ -314,11 +327,7 @@ public class Addwindows extends javax.swing.JFrame {
         bg.add(nameTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 210, 30));
 
         jSeparator7.setForeground(new java.awt.Color(0, 0, 0));
-        bg.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 180, 210, 20));
-
-        userLabel6.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        userLabel6.setText("DIRECCIÓN");
-        bg.add(userLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 130, -1, -1));
+        bg.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 180, 160, 20));
 
         dateLabel.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         dateLabel.setText("FECHA DE NACIMIENTO");
@@ -344,10 +353,6 @@ public class Addwindows extends javax.swing.JFrame {
 
         jSeparator8.setForeground(new java.awt.Color(0, 0, 0));
         bg.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 180, 170, 20));
-
-        userLabel7.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        userLabel7.setText("TIPO DE CONTACTO");
-        bg.add(userLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 130, -1, -1));
 
         jComboBox2.setEditable(true);
         jComboBox2.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -410,13 +415,13 @@ public class Addwindows extends javax.swing.JFrame {
 
     private void addBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addBtnTxtMouseClicked
         DaoStudentUse studentDao = DaoStudentUse.getInstance();
-        ListWindow listwindow =  ListWindow.getInstance();
+        ListW listwindow =  ListW.getInstance();
         
         
-        Student student = new Student(nameTxt.getText(),lastNameTxt.getText(),addresTxt.getText(),numTextField.getText(),jComboBox1.getSelectedItem().toString(),idTxt.getText(),dateTextField.getText());
+        Student student = new Student(nameTxt.getText(),lastNameTxt.getText(),addresTxt.getText(),numTextField.getText(),jComboBox2.getSelectedItem().toString(),idTxt.getText(),dateTextField.getText(),jComboBox1.getSelectedItem().toString());
         studentDao.addStudent(student);
         studentDao.saveStudentsExternally(student);
-        listwindow.addLits(nameTxt.getText(),lastNameTxt.getText(),idTxt.getText(),dateTextField.getText(),jComboBox1.getSelectedItem().toString(), numTextField.getText(),jComboBox2.getSelectedItem().toString(),addresTxt.getText());
+        listwindow.addLits(nameTxt.getText(),lastNameTxt.getText(),idTxt.getText(),dateTextField.getText(),jComboBox1.getSelectedItem().toString(), numTextField.getText(),jComboBox1.getSelectedItem().toString(),addresTxt.getText());
         listwindow.setVisible(true);
         
         
@@ -478,6 +483,14 @@ public class Addwindows extends javax.swing.JFrame {
         numTextField.setForeground(Color.black);
     }//GEN-LAST:event_numTextFieldMousePressed
 
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        // TODO add your handling code here:
+        Menu menu=   Menu.getInstance();
+        menu.setVisible(true);
+        Add add = Add.getInstance();
+        add.setVisible(false);
+    }//GEN-LAST:event_jLabel1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -487,6 +500,7 @@ public class Addwindows extends javax.swing.JFrame {
     private javax.swing.JPanel addBtn;
     private javax.swing.JLabel addBtnTxt;
     private javax.swing.JTextField addresTxt;
+    private javax.swing.JLabel addressLabel;
     private javax.swing.JPanel bg;
     private javax.swing.JLabel dateLabel;
     private javax.swing.JFormattedTextField dateTextField;
@@ -515,7 +529,6 @@ public class Addwindows extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField numTextField;
     private javax.swing.JComboBox<String> tipeIdComboBox;
     private javax.swing.JLabel title;
-    private javax.swing.JLabel userLabel6;
     private javax.swing.JLabel userLabel7;
     // End of variables declaration//GEN-END:variables
 }

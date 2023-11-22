@@ -11,14 +11,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author tokyo
  */
-public class ListWindow extends javax.swing.JFrame {
+public class ListW extends javax.swing.JFrame {
         DefaultTableModel dtm = new DefaultTableModel();
-        private static ListWindow instance = null;
+        private static ListW instance = null;
         int xMouse, yMouse;
     /**
      * Creates new form ListWindow
      */
-    public ListWindow() {
+    public ListW() {
         initComponents();
         String[] title = new String []{"Nombre y Apellidos","ID documento","Fecha de Nacimiento","Tipo de Contacto","Número de Teléfono","Tipo de Teléfono","Dirección"};
         dtm.setColumnIdentifiers(title);
@@ -37,9 +37,9 @@ public class ListWindow extends javax.swing.JFrame {
         dtm.addRow(new Object[]{name + " " +lastname,idcod,date,typeC,phoneN,typeP,addres});        
     }
     
-    public static ListWindow getInstance() {
+    public static ListW getInstance() {
         if (instance == null) {
-            instance = new ListWindow();
+            instance = new ListW();
         }
         return instance;
     }

@@ -24,9 +24,10 @@ public class Student implements Serializable {
     private String phoneNumber;
     private String typePhone;
     private String date;
+    private String typeC;
     
      
-    public Student(String name,String lastname,String address,String phoneNumber,String typePhone,String documentId,String date) {
+    public Student(String name,String lastname,String address,String phoneNumber,String typePhone,String documentId,String date,String typeC) {
         idCounter++;
         this.idCode = idCounter;
         this.name = name;
@@ -37,6 +38,7 @@ public class Student implements Serializable {
         this.documentId = documentId;
         this.date= date;  
         this.codeId = nextId++; 
+        this.typeC= typeC;
         System.out.println("studiante creado");
     } 
     
@@ -51,9 +53,7 @@ public class Student implements Serializable {
                 ", Fecha de nacimiento: " + date;
     }
     
-    public static void setNextId(int nextId) {
-        Student.nextId = nextId;
-    }
+   
     
     public String getName(){ 
         return name;
@@ -110,9 +110,16 @@ public class Student implements Serializable {
     public void setDate(String date){ 
         this.date= date;
     }
-
+    
+     public static void setNextId(int nextId) {
+        Student.nextId = nextId;
+    }
     public int getCodeId() {
         return  codeId;
     }
    
+    public void setTypeC(String typeC){
+        this.typeC = typeC;
+    
+    }
 }

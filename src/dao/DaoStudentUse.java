@@ -74,7 +74,7 @@ public class DaoStudentUse implements IEstudensDao {
     @Override
     public boolean addStudent(Student student) {
         students.add(student);
-        System.out.println("agregado"+ student.getName());
+        System.out.println("agregado "+ student.getName() +" "+ student.getLastName());
         return true;
     }
 
@@ -108,7 +108,10 @@ public class DaoStudentUse implements IEstudensDao {
     public int getTotalStudentsLoaded(){
         return totalStudentsLoaded;
     }
-        
+    
+    public int getsizeSt(){
+        return students.size();
+    }    
 
     private void loadStudents() {
         File directory = new File(FILE_DIRECTORY);
@@ -148,15 +151,13 @@ public class DaoStudentUse implements IEstudensDao {
         } else {
             System.out.println("No se encontraron archivos de estudiantes en la ruta especificada.");
         }
-    }
-
+    }  
     
-    
-   public void loadStudentsExternally() {
+    public void loadStudentsExternally() {
         loadStudents(); // Llamada al método privado para cargar
     }
    
-   public void updateStudentFile(Student student) {
+    public void updateStudentFile(Student student) {
         // Encontrar el archivo correspondiente al estudiante y actualizarlo
         String filePath = FILE_DIRECTORY + "student_" + student.getCodeId() + ".ser";
         File file = new File(filePath);
@@ -174,7 +175,55 @@ public class DaoStudentUse implements IEstudensDao {
         }
     }
    
-   public void updateStudentFileExternally(Student student) {
+    public void updateStudentFileExternally(Student student) {
         updateStudentFile(student); // Llamada al método privado para guardar estudiantes
     }
+    
+    public boolean deleteStudentFile(int studentId) {
+        String filePath = FILE_DIRECTORY + "student_" + studentId + ".ser";
+        File file = new File(filePath);
+
+        if (file.exists()) {
+            if (file.delete()) {
+            System.out.println("Archivo del estudiante eliminado: " + filePath);
+            return true;
+            } else {
+            System.out.println("No se pudo eliminar el archivo del estudiante: " + filePath);
+            return false;
+            }
+        } else {
+        System.out.println("El archivo del estudiante no existe.");
+        return false;
+        }
+    }
+   
+    public boolean deleteStudentByIndex(int index) {
+    if (index >= 0 && index < students.size()) {
+        Student removedStudent = students.remove(index);
+        if (removedStudent != null) {
+            System.out.println("Eliminado " + removedStudent.getName());
+            return true;
+        }
+    }
+    return false;
 }
+
+    @Override
+    public boolean deleteStudentI(int index) {
+    if (index >= 0 && index < students.size()) {
+        Student removedStudent = students.remove(index);
+        if (removedStudent != null) {
+            System.out.println("Eliminado " + removedStudent.getName());
+            return true;
+        }
+    }
+    return false;
+    }   
+
+
+}
+    
+    
+   
+ 
+
