@@ -13,7 +13,7 @@ public class Update extends javax.swing.JFrame {
     int xMouse, yMouse;
     private static Update instance = null;
     ListW listwindow =  ListW.getInstance();
-    private int fila;
+    private int selectedRow;
 
     /**
      * Creates new form Update
@@ -483,21 +483,40 @@ public class Update extends javax.swing.JFrame {
     }//GEN-LAST:event_headerMousePressed
 
     private void updateBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateBtnTxtMouseClicked
-       DaoStudentUse studentDao = DaoStudentUse.getInstance();
-        fila = jTable1.getSelectedRow()+1;
-        
-        if (fila > studentDao.getsizeSt()){
-         fila--;
-        }
-        Student studentById = studentDao.getStudent(fila );
+           DaoStudentUse studentDao = DaoStudentUse.getInstance();
+
+        // Obtiene la fila seleccionada
+        int selectedRow = jTable1.getSelectedRow();
+    
+         // Verifica que una fila esté seleccionada
+         if (selectedRow != -1) {
+        // Obtiene el ID de la fila seleccionada
+        int idToUpdate = (int) jTable1.getValueAt(selectedRow, jTable1.getColumnCount() - 1);
+
+        // Encuentra el estudiante en el Dao
+        Student studentById = studentDao.getStudentById(idToUpdate);
         if (studentById != null) {
-            System.out.println("Estudiante encontrado: " + studentById.getName() + " " + "fila " + fila );
+            // Actualiza los datos del estudiante
+            studentById.setName(nameTxt.getText());
+            studentById.setDocumentId(idTxt.getText()); // Asegúrate de tener este método en tu clase Student
+
+            // Actualiza el estudiante en el Dao
+            studentDao.updateStudent(studentById);
+            
+            // Actualiza el archivo del estudiante
+            studentDao.updateStudentFileExternally(studentById);
+
+            // Actualiza el modelo de la tabla
+            listwindow.dtm.setValueAt(nameTxt.getText() + " " + lastNameTxt.getText(), selectedRow, 0);
+            listwindow.dtm.setValueAt(idTxt.getText(), selectedRow, 1); // Suponiendo que ID documento está en la columna 1
+
+            System.out.println("Estudiante actualizado: " + studentById.getName());
         } else {
-            System.out.println("Estudiante " + (fila) +" no encontrado" );
+            System.out.println("Estudiante con ID " + idToUpdate + " no encontrado.");
         }
-        studentById.setName(nameTxt.getText());
-        studentDao.updateStudent(studentById);
-        listwindow.dtm.setValueAt((nameTxt.getText()+" "+lastNameTxt.getText()), fila-1, 0);
+        } else {
+        System.out.println("No se seleccionó ninguna fila.");
+        }
     }//GEN-LAST:event_updateBtnTxtMouseClicked
 
     private void updateBtnTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateBtnTxtMouseEntered
@@ -571,16 +590,16 @@ public class Update extends javax.swing.JFrame {
     private void seleccBtnTxt1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seleccBtnTxt1MouseClicked
         // TODO add your handling code here:
         DaoStudentUse studentDao = DaoStudentUse.getInstance();
-        fila = jTable1.getSelectedRow()+1;
+        selectedRow = jTable1.getSelectedRow()+1;
         
-        if (fila > studentDao.getsizeSt()){
-         fila--;
+        if (selectedRow > studentDao.getsizeSt()){
+         selectedRow--;
         }
-        Student studentById = studentDao.getStudent(fila );
+        Student studentById = studentDao.getStudent(selectedRow );
         if (studentById != null) {
-            System.out.println("Estudiante encontrado: " + studentById.getName() + " " + "fila " + fila );
+            System.out.println("Estudiante encontrado: " + studentById.getName() + " " + "fila " + selectedRow );
         } else {
-            System.out.println("Estudiante " + (fila) +" no encontrado" );
+            System.out.println("Estudiante " + (selectedRow) +" no encontrado" );
         }
         
         nameTxt.setText(studentById.getName());

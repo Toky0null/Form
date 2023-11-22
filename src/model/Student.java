@@ -122,4 +122,7 @@ public class Student implements Serializable {
         this.typeC = typeC;
     
     }
+     public String getTypeC(){
+     
+     return typeC;     }
 }

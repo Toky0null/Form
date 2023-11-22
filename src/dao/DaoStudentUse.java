@@ -219,6 +219,20 @@ public class DaoStudentUse implements IEstudensDao {
     }
     return false;
     }   
+    /**
+     * Obtiene un estudiante por su ID.
+     *
+     * @param id El ID del estudiante a buscar.
+     * @return El estudiante si se encuentra, de lo contrario null.
+     */
+    public Student getStudentById(int id) {
+        for (Student student : students) {
+            if (student.getCodeId() == id) {
+                return student;
+            }
+        }
+        return null; // Retorna null si no encuentra el estudiante
+    }
 
 
 }

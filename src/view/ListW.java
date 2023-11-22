@@ -20,7 +20,7 @@ public class ListW extends javax.swing.JFrame {
      */
     public ListW() {
         initComponents();
-        String[] title = new String []{"Nombre y Apellidos","ID documento","Fecha de Nacimiento","Tipo de Contacto","Número de Teléfono","Tipo de Teléfono","Dirección"};
+        String[] title = new String []{"Nombre y Apellidos","ID documento","Fecha de Nacimiento","Tipo de Contacto","Número de Teléfono","Tipo de Teléfono","Dirección","Numero ID"};
         dtm.setColumnIdentifiers(title);
         jTable1.setModel(dtm);
         for (int i = 0; i < jTable1.getColumnCount(); i++) {
@@ -33,8 +33,8 @@ public class ListW extends javax.swing.JFrame {
         dtm.removeRow(fila);
     
     }
-    public void addLits(String name,String lastname,String idcod,String date,String typeC,String phoneN,String typeP,String addres){
-        dtm.addRow(new Object[]{name + " " +lastname,idcod,date,typeC,phoneN,typeP,addres});        
+    public void addLits(String name,String lastname,String idcod,String date,String typeC,String phoneN,String typeP,String addres,int ID){
+        dtm.addRow(new Object[]{name + " " +lastname,idcod,date,typeC,phoneN,typeP,addres,ID});        
     }
     
     public static ListW getInstance() {
@@ -47,7 +47,15 @@ public class ListW extends javax.swing.JFrame {
     public DefaultTableModel getTableModel() {
         return dtm;
     } 
-     
+    
+    public void deleteById(int id) {
+        for (int i = 0; i < dtm.getRowCount(); i++) {
+            if ((int) dtm.getValueAt(i, dtm.getColumnCount() - 1) == id) {
+                dtm.removeRow(i);
+                break; // Salir del bucle una vez que se encuentra y elimina la fila
+            }
+        }
+    }
      
     /**
      * This method is called from within the constructor to initialize the form.

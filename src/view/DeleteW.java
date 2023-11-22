@@ -16,7 +16,8 @@ public class DeleteW extends javax.swing.JFrame {
     int xMouse, yMouse;
     private static DeleteW instance = null;
     ListW listwindow =  ListW.getInstance();
-    private int fila;
+    private int selectedRow;
+    private int idToDelete;
     /**
      * Creates new form DeleteWindow
      */
@@ -244,23 +245,31 @@ public class DeleteW extends javax.swing.JFrame {
 
     private void deleteBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteBtnTxtMouseClicked
         DaoStudentUse studentDao = DaoStudentUse.getInstance();
-        fila = jTable1.getSelectedRow()+1;
-        
-        if (fila > studentDao.getsizeSt()){
-         fila--;
-        }
-        Student studentById = studentDao.getStudent(fila );
+    
+    // Obtiene la fila seleccionada
+    selectedRow = jTable1.getSelectedRow();
+    
+    // Verifica que una fila esté seleccionada
+    if (selectedRow != -1) {
+        // Obtiene el ID de la fila seleccionada
+        idToDelete = (int) jTable1.getValueAt(selectedRow, jTable1.getColumnCount() - 1);
+
+        // Encuentra y elimina al estudiante en el Dao
+        Student studentById = studentDao.getStudentById(idToDelete);
         if (studentById != null) {
-            System.out.println("Estudiante encontrado: " + studentById.getName() + " " + "fila " + fila );
+            studentDao.deleteStudent(studentById);
+            studentDao.deleteStudentFile(studentById.getCodeId());
+            System.out.println("Estudiante eliminado: " + studentById.getName());
         } else {
-            System.out.println("Estudiante " + (fila) +" no encontrado" );
+            System.out.println("Estudiante con ID " + idToDelete + " no encontrado.");
         }
-       
-        //studentDao.deleteStudentI(fila +1 );
         
-        studentDao.deleteStudent(studentById);
-        studentDao.deleteStudentFile(studentById.getCodeId());
-        listwindow.delete(fila-1);
+        // Elimina la fila del modelo de la tabla
+        listwindow.deleteById(idToDelete);
+    } else {
+        System.out.println("No se seleccionó ninguna fila.");
+    }
+
     }//GEN-LAST:event_deleteBtnTxtMouseClicked
 
     private void deleteBtnTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteBtnTxtMouseEntered

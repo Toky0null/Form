@@ -17,7 +17,7 @@ public class Menu extends javax.swing.JFrame {
         if (studentById != null) {      
         String name = studentById.getName();
         listwindow.addLits(name, studentById.getLastName(), studentById.getDocumentId(), studentById.getDate(),
-                name, studentById.getPhoneNumber(), studentById.getTypePhone(), studentById.getAddres());
+               studentById.getTypeC() , studentById.getPhoneNumber(), studentById.getTypePhone(), studentById.getAddres(),studentById.getCodeId());
         } else {
         System.out.println("No se encontró ningún estudiante con ID: " + i);
         }   
