@@ -283,9 +283,8 @@ public class DeleteW extends javax.swing.JFrame {
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         // TODO add your handling code here:
         Menu menu=   Menu.getInstance();
-        menu.setVisible(true);
-        DeleteW delete = DeleteW.getInstance();
-        delete.setVisible(false);
+        menu.setVisible(true);      
+        this.setVisible(false);
     }//GEN-LAST:event_jLabel1MouseClicked
 
     /**

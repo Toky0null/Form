@@ -202,9 +202,9 @@ public class Update extends javax.swing.JFrame {
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerLayout.createSequentialGroup()
                 .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1094, 1094, 1094)
+                .addGap(1122, 1122, 1122)
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(34, 34, 34))
+                .addContainerGap())
         );
         headerLayout.setVerticalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -607,8 +607,7 @@ public class Update extends javax.swing.JFrame {
         // TODO add your handling code here:
         Menu menu=Menu.getInstance();
         menu.setVisible(true);
-        Update update = Update.getInstance();
-        update.setVisible(false);
+        this.setVisible(false);
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void updateBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateBtnTxtMouseClicked

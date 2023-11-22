@@ -83,6 +83,8 @@ public class ListW extends javax.swing.JFrame {
         allBtnTxt = new javax.swing.JLabel();
         teacherBtn = new javax.swing.JPanel();
         teacherBtnTxt = new javax.swing.JLabel();
+        employeesBtn1 = new javax.swing.JPanel();
+        employeesBtnTxt1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
@@ -138,6 +140,11 @@ public class ListW extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/flechas-izquierda.png"))); // NOI18N
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
@@ -145,9 +152,9 @@ public class ListW extends javax.swing.JFrame {
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerLayout.createSequentialGroup()
                 .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1094, 1094, 1094)
+                .addGap(1122, 1122, 1122)
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(34, 34, 34))
+                .addContainerGap())
         );
         headerLayout.setVerticalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,7 +214,7 @@ public class ListW extends javax.swing.JFrame {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        bg.add(studentBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 470, 130, 40));
+        bg.add(studentBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 470, 130, 40));
 
         allBtn.setBackground(new java.awt.Color(0, 134, 190));
 
@@ -249,7 +256,7 @@ public class ListW extends javax.swing.JFrame {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        bg.add(allBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 470, 130, 40));
+        bg.add(allBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 470, 130, 40));
 
         teacherBtn.setBackground(new java.awt.Color(0, 134, 190));
 
@@ -292,7 +299,49 @@ public class ListW extends javax.swing.JFrame {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        bg.add(teacherBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 470, 130, 40));
+        bg.add(teacherBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 470, 130, 40));
+
+        employeesBtn1.setBackground(new java.awt.Color(0, 134, 190));
+
+        employeesBtnTxt1.setFont(new java.awt.Font("Roboto Condensed", 1, 14)); // NOI18N
+        employeesBtnTxt1.setForeground(new java.awt.Color(255, 255, 255));
+        employeesBtnTxt1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        employeesBtnTxt1.setText("Empleados");
+        employeesBtnTxt1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        employeesBtnTxt1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                employeesBtnTxt1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                employeesBtnTxt1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                employeesBtnTxt1MouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout employeesBtn1Layout = new javax.swing.GroupLayout(employeesBtn1);
+        employeesBtn1.setLayout(employeesBtn1Layout);
+        employeesBtn1Layout.setHorizontalGroup(
+            employeesBtn1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 130, Short.MAX_VALUE)
+            .addGroup(employeesBtn1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(employeesBtn1Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(employeesBtnTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        employeesBtn1Layout.setVerticalGroup(
+            employeesBtn1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+            .addGroup(employeesBtn1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(employeesBtn1Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(employeesBtnTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        bg.add(employeesBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 470, -1, -1));
 
         jTable1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -400,10 +449,12 @@ public class ListW extends javax.swing.JFrame {
 
     private void studentBtnTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentBtnTxtMouseEntered
         // TODO add your handling code here:
+        studentBtn.setBackground(new Color(0, 156, 223));
     }//GEN-LAST:event_studentBtnTxtMouseEntered
 
     private void studentBtnTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentBtnTxtMouseExited
         // TODO add your handling code here:
+        studentBtn.setBackground(new Color(0,134,190));
     }//GEN-LAST:event_studentBtnTxtMouseExited
 
     private void allBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_allBtnTxtMouseClicked
@@ -425,11 +476,50 @@ public class ListW extends javax.swing.JFrame {
 
     private void allBtnTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_allBtnTxtMouseEntered
         // TODO add your handling code here:
+        allBtn.setBackground(new Color(0, 156, 223));
     }//GEN-LAST:event_allBtnTxtMouseEntered
 
     private void allBtnTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_allBtnTxtMouseExited
         // TODO add your handling code here:
+        allBtn.setBackground(new Color(0,134,190));
     }//GEN-LAST:event_allBtnTxtMouseExited
+
+    private void employeesBtnTxt1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_employeesBtnTxt1MouseClicked
+        // TODO add your handling code here:
+        DaoStudentUse studentDao = DaoStudentUse.getInstance();
+        ListW listwindow = ListW.getInstance();
+
+        contact = studentDao.getContactsByType("Empleado");
+        listwindow.getTableModel().setRowCount(0);
+
+        for (Contact studentById : contact) {
+    if (studentById != null) {
+        String name = studentById.getName();
+        listwindow.addLits(name, studentById.getLastName(), studentById.getDocumentId(), studentById.getDate(),
+                           studentById.getTypeC(), studentById.getPhoneNumber(), studentById.getTypePhone(), studentById.getAddres(), studentById.getCodeId());
+    } else {
+        System.out.println("No se encontró ningún estudiante.");
+    }
+}
+    }//GEN-LAST:event_employeesBtnTxt1MouseClicked
+
+    private void employeesBtnTxt1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_employeesBtnTxt1MouseEntered
+        // TODO add your handling code here:
+        employeesBtn1.setBackground(new Color(0, 156, 223));
+    }//GEN-LAST:event_employeesBtnTxt1MouseEntered
+
+    private void employeesBtnTxt1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_employeesBtnTxt1MouseExited
+        // TODO add your handling code here:
+        employeesBtn1.setBackground(new Color(0,134,190));
+    }//GEN-LAST:event_employeesBtnTxt1MouseExited
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        // TODO add your handling code here:
+        Menu menu=Menu.getInstance();
+        menu.setVisible(true);
+        
+        this.setVisible(false);
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -440,6 +530,8 @@ public class ListW extends javax.swing.JFrame {
     private javax.swing.JPanel allBtn;
     private javax.swing.JLabel allBtnTxt;
     private javax.swing.JPanel bg;
+    private javax.swing.JPanel employeesBtn1;
+    private javax.swing.JLabel employeesBtnTxt1;
     private javax.swing.JPanel exitBtn;
     private javax.swing.JLabel exitTxt;
     private javax.swing.JPanel header;

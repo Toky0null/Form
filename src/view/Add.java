@@ -487,8 +487,7 @@ public class Add extends javax.swing.JFrame {
         // TODO add your handling code here:
         Menu menu=   Menu.getInstance();
         menu.setVisible(true);
-        Add add = Add.getInstance();
-        add.setVisible(false);
+        this.setVisible(false);
     }//GEN-LAST:event_jLabel1MouseClicked
 
     /**

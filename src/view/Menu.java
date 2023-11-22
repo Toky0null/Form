@@ -365,16 +365,15 @@ public class Menu extends javax.swing.JFrame {
     private void listBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listBtnTxtMouseClicked
         ListW listwindow =  ListW.getInstance();
         listwindow.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_listBtnTxtMouseClicked
 
     private void updateBtnTxt1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateBtnTxt1MouseClicked
         // TODO add your handling code here:
         Update update = Update.getInstance();
         update.setVisible(true);
-       
-
-        Menu menu=Menu.getInstance();
-        menu.setVisible(false);
+     
+        this.setVisible(false);
     }//GEN-LAST:event_updateBtnTxt1MouseClicked
 
     private void updateBtnTxt1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateBtnTxt1MouseEntered
@@ -391,9 +390,7 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         Add addwindow = Add.getInstance();
         addwindow.setVisible(true);
-        Menu menu=   Menu.getInstance();
-        menu.setVisible(false);
-        
+        this.setVisible(false);
     }//GEN-LAST:event_addBtnTxt2MouseClicked
 
     private void addBtnTxt2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addBtnTxt2MouseEntered
@@ -411,8 +408,7 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         DeleteW delete = DeleteW.getInstance();
         delete.setVisible(true);
-        Menu menu=   Menu.getInstance();
-        menu.setVisible(false);
+        this.setVisible(false);
     }//GEN-LAST:event_deleteBtnTxt1MouseClicked
 
     private void deleteBtnTxt1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteBtnTxt1MouseEntered
